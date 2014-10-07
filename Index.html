@@ -1,28 +1,49 @@
 <!doctype html>
 <html>
 <head>
-    <title>My Page</title>
+    <title>Thermistor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script src="ThermistorData.js"></script>
 	<script>
-	$( "calc" ).click(function() {
-	  $( "result" ).text("Answer");
+	$(document).ready(function(){ 
+	  $( "#calc" ).click(function() {
+	    $( "#result" ).text("Answer");
+	  });
+	  $( "#converter" ).on("submit", function( event ) {
+	    event.preventDefault();
+		event.stopPropagation();
+		var ohmValue = $( "#ohm" ).val();
+		$( "#result" ).text(calcit(ohmValue));        		
+	  });
 	});
+	
+	function calcit(input) {
+	  var answer = input * 1.5;
+	  return answer
+	}
 	</script>
 </head>
 <body>
     <div data-role="page">
  
         <div data-role="header">
-            <h1>My Title</h1>
+            <h1>Ohms to degC</h1>
         </div><!-- /header -->
  
         <div data-role="content">
-            <p>Hello world</p>
-			<input type="number" />
-			<a id="calc" data-role="button" data-icon="refresh">Calculate</a>
+            <form id="converter">
+				<select name="select-choice-0" id="select-choice-0">
+				   <option value="type2">10k Type II</option>
+				   <option value="type3">10k Type III</option>
+				   <option value="type4">10k w/11k Shunt</option>
+				   <option value="type5">Balco 1k</option>
+				</select>
+				<input id="ohm" name="ohms" type="number" />
+				<button type="submit" value="Submit" data-icon="refresh">Calc</button>
+			</form>
 			<div id="result">Result goes here</div>
         </div><!-- /content -->
          
